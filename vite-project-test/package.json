@@ -12,6 +12,7 @@
     "server": "json-server --watch db.json --delay=3000 --port 3001"
   },
   "dependencies": {
+    "lucide-vue-next": "^0.473.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -21,6 +22,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.14.0",
     "eslint-plugin-vue": "^9.30.0",
+    "json-server": "^0.17.4",
     "postcss": "^8.5.1",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.17",

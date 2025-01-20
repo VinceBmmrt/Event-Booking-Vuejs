@@ -31,7 +31,14 @@
   ],
   "bookings": [
     {
-      "id": "1737382310188",
+      "id": "1737394079407",
+      "userId": 1,
+      "eventId": "3",
+      "eventTitle": "PHP Conference 2022",
+      "status": "confirmed"
+    },
+    {
+      "id": "1737394275538",
       "userId": 1,
       "eventId": "1",
       "eventTitle": "Rails Conference 2024",
