@@ -1,17 +1,20 @@
 <script setup>
 import EventCard from '@/components/EventCard.vue';
 import LoadingEventCard from '@/components/LoadingEventCard.vue';
-import SectionCard from '@/components/SectionCard.vue';
+import useBookings from '@/composables/useBookings';
 import { onMounted, ref } from 'vue';
-import ButtonCustom from './ButtonCustom.vue';
+import ErrorCard from './ErrorCard.vue';
 
-defineEmits(['register']);
+
+const {handleRegistration} = useBookings();
 
 const events = ref([]);
 const loading = ref(false);
 const error = ref(null);
+
 const fetchEvents = async () => {
   loading.value = true;
+  error.value = null;
   try {
     const response = await fetch('http://localhost:3001/events');
     events.value = await response.json();
@@ -19,7 +22,6 @@ const fetchEvents = async () => {
     error.value = e;
   } finally {
     loading.value = false;
-    error.value = null;
   }
 };
 
@@ -30,13 +32,7 @@ onMounted(() => {
 
 <template>
   <template v-if="error">
-    <SectionCard>
-      <div class="space-y-4 items-center flex flex-col">
-        <div class="text-red-500">Could not load events at the moment please try again</div>
-
-        <ButtonCustom @click="fetchEvents">Retry Now</ButtonCustom>
-      </div>
-    </SectionCard>
+    <ErrorCard :retry="fetchEvents">Could not fetch events</ErrorCard>
   </template>
   <template v-else>
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -48,7 +44,7 @@ onMounted(() => {
             :title="event.title"
             :when="event.date"
             :description="event.description"
-            @register="$emit('register', event)"
+            @register="handleRegistration(event)"
           />
         </template>
         <template v-else>
